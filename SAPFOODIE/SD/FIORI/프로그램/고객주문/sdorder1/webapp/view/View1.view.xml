@@ -1,0 +1,107 @@
+<mvc:View xmlns:form="sap.ui.layout.form" 
+    controllerName="b02.sd.common.sdorder1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    xmlns:table="sap.ui.table"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+    class="viewPadding"
+    xmlns:core="sap.ui.core"
+	height="100%">
+    <Page id="page" title="{i18n>title}" class="@font-face">
+    <!-- <Button text="test" press="onTest"></Button> -->
+        <content>
+            <VBox>
+                <Table id = "products" 
+                    mode="MultiSelect"
+                    items="{path : 'view>/ProductData'}">
+                 <!-- growing="true" growingThreshold="5"
+                       items="{path : '/CustomorderSet'}"
+                        mode="SingleSelectMaster"> -->
+                    <headerToolbar>
+                    <OverflowToolbar>
+                    <Bar>
+                        <contentLeft>
+                         <Title text="제품 리스트" titleStyle="H3" class="myText2"/>
+                         <Title text="{selectedHdr>/Purcornb}"/>
+                            <!-- <Button icon="sap-icon://refresh" text="새로고침" press="onRefresh"/> -->
+                            <ToolbarSpacer/>
+                            <!-- <Button text="장바구니 담기" visible="{= ${tog>/stat} === 'Normal' ? true : false }" press="onInCart"/> -->
+                            <!-- <Button text="수정" visible="{= ${tog>/stat} === 'Normal' ? true : false }" press="onEditMode"/> -->
+                            <!-- <Button text="저장" visible="{= ${tog>/stat} === 'Create' ? true : false }" press="onCreateData" type="Accept"/> -->
+                            <!-- <Button text="취소" visible="{= ${tog>/stat} === 'Create' ? true : false }" press="onCreateCancel" type="Reject"/> -->
+                            <ToolbarSeparator />
+                        </contentLeft>
+                        
+                        <contentRight>
+                            <Button	
+                                text="장바구니 담기"
+                                press="onInCart"
+                                tooltip="{i18n>avatarButtonTooltip}"/>
+                            <!-- <Button class="sapUiTinyMargin" text="Navigate to Middle Column" press="handleNavigateToMidColumnPress"/> -->
+                            
+                            <Button
+                                icon="sap-icon://cart"
+                                press="handleNavigateToMidColumnPress">
+
+                                <!-- press="handleNavigateToMidColumnPress"> -->
+                            
+                            </Button>
+                        </contentRight>
+                    </Bar>
+                    </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="" class="myText2"/>
+                        </Column>
+                        <Column>
+                            <Text text="제품명"/>
+                        </Column>
+                        <Column>
+                            <Text text="가격"/>
+                        </Column>
+                        <Column>
+                            <Text text="수량"/>
+                        </Column>
+                        <Column>
+                            <Text text="단위"/>
+                        </Column>
+                        <Column>
+                            <Text text="금액"/>
+                        </Column>
+                    </columns>  
+                    <items>
+                        <ColumnListItem vAlign="Middle">
+                            <cells>
+                                <Image src="{view>image}"
+                                        width="50%"
+                                        height="50%"/>
+                                <Text text="{view>Matrnm}"/>
+                                <Text text="{view>Price}"/>
+                                <Input 
+                                    id='Quantity'
+                                    value= "{view>Quantity}" 
+                                    change = "onLiveChange" 
+                                    type="Number" 
+                                    description="{UoM}" 
+                                    fieldWidth="{50%}" 
+                                    editable="true" />     
+                                <Text text="BOX" />
+                                <!-- <ObjectNumber
+                                number="{
+                                    parts:[{path:'Sdprice'},{path:''}],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {showMeasure: false}
+                                }"
+                                unit="원" /> -->
+                                <Text id="Amount"  text="{view>sResult}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

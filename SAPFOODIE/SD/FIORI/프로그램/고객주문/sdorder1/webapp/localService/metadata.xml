@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZGWB02FOODSD_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ProductList" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Matrc"/>
+                </Key>
+                <Property Name="Matrc" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="자재코드"/>
+                <Property Name="Matrnm" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="자재명"/>
+                <Property Name="Unit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="기준단위" sap:semantics="unit-of-measure"/>
+                <Property Name="Sdprice" Type="Edm.Decimal" Precision="9" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="판매단가"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="통화" sap:semantics="currency-code"/>
+                <Property Name="Convsq" Type="Edm.Decimal" Precision="8" Scale="0" sap:unicode="false" sap:unit="Cunit" sap:label="환산수량"/>
+                <Property Name="Cunit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="환산단위" sap:semantics="unit-of-measure"/>
+                <Property Name="Boxea" Type="Edm.Decimal" Precision="8" Scale="0" sap:unicode="false" sap:unit="Unit" sap:label="박스 당 EA"/>
+                <Property Name="Matrtype" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="자재타입"/>
+                <Property Name="Weight" Type="Edm.Decimal" Precision="6" Scale="0" sap:unicode="false" sap:unit="Kunit" sap:label="[MD] 무게  Data element"/>
+                <Property Name="Kunit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="[MD] 단위 Data Element" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="CustomerOrder" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ordercd"/>
+                    <PropertyRef Name="Prodcd"/>
+                </Key>
+                <Property Name="Plant" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Plant"/>
+                <Property Name="Cmpnc" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="회사코드"/>
+                <Property Name="Vendorc" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="판매처 코드"/>
+                <Property Name="Saleym" Type="Edm.String" MaxLength="7" sap:unicode="false" sap:label="매출년월"/>
+                <Property Name="Ordercd" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="주문번호"/>
+                <Property Name="Orderdate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="주문 일자"/>
+                <Property Name="Duedate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="납기 일자"/>
+                <Property Name="Ttamount" Type="Edm.Decimal" Precision="11" Scale="3" sap:unicode="false" sap:label="총액"/>
+                <Property Name="Waers" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="화폐 단위"/>
+                <Property Name="Odmaxwt" Type="Edm.Decimal" Precision="10" Scale="0" sap:unicode="false" sap:label="주문 총 무게"/>
+                <Property Name="Weightunit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="무게 단위"/>
+                <Property Name="Outstoredt" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="출하일"/>
+                <Property Name="Resprid" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="담당자 ID"/>
+                <Property Name="Statflag" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="상태플래그"/>
+                <Property Name="Delflag" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="삭제 플래그"/>
+                <Property Name="Dispatchcd" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="배차 코드"/>
+                <Property Name="Prodcd" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="제품코드"/>
+                <Property Name="Boxunit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="출고단위"/>
+                <Property Name="Itemprice" Type="Edm.Decimal" Precision="9" Scale="3" sap:unicode="false" sap:label="항목 별 금액"/>
+                <Property Name="Itemweight" Type="Edm.Decimal" Precision="10" Scale="0" sap:unicode="false" sap:label="항목 별 무게"/>
+                <Property Name="Itemqty" Type="Edm.Decimal" Precision="8" Scale="0" sap:unicode="false" sap:label="항목 별 수량"/>
+                <Property Name="Fixedqty" Type="Edm.Decimal" Precision="8" Scale="0" sap:unicode="false" sap:label="확정 수량"/>
+            </EntityType>
+            <EntityContainer Name="ZGWB02FOODSD_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ProductListSet" EntityType="ZGWB02FOODSD_SRV.ProductList" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CustomerOrderSet" EntityType="ZGWB02FOODSD_SRV.CustomerOrder" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZGWB02FOODSD_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZGWB02FOODSD_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

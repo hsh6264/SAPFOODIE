@@ -1,0 +1,88 @@
+<mvc:View 
+xmlns="sap.m" 
+xmlns:mvc="sap.ui.core.mvc" 
+displayBlock="true" 
+controllerName="b02.sd.common.sdorder1.controller.View2" 
+height="100%">
+	<Page id="detailPage" title="장바구니">
+	<!-- <Button text="test" press="onTest"></Button> -->
+	<footer>
+		<Toolbar>
+			<Text
+			id="totalPriceText"
+			text="{Compo>/sTotal}"
+			class="sapUiTinyMarginBegin"/>
+			<ToolbarSpacer/>
+			<Button 
+			class="sapUiTinyMargin"  
+			text="주문하기" 
+			press="handleNavigateToLastColumn"/>
+		</Toolbar>
+	</footer>
+	<Bar>
+		<contentLeft>
+			<!-- <Button icon="sap-icon://refresh" text="새로고침" press="onRefresh"/> -->
+			<ToolbarSpacer/>
+			<Button 
+				icon="sap-icon://nav-back"
+				press="handleNavigateToFirstColumn"/>
+			<ToolbarSeparator />
+		</contentLeft>
+		
+		<contentRight>
+			<!-- <Button 
+					text="삭제"
+					press="handleNavigateToFirstColumn"/> -->
+		</contentRight>
+	</Bar>
+	<content>
+		<VBox>
+		<Table mode="Delete"
+			   items="{path :'myModel>/cart'}">
+			<columns>
+                <Column>
+                    <Text text=""/>
+                </Column>
+                <Column>
+                    <Text text="제품명"/>
+                </Column>
+                <Column>
+                    <Text text="수량"/>
+                </Column>
+                <Column>
+                    <Text text="금액"/>
+                </Column>
+            </columns>  
+
+            <items>
+                <ColumnListItem vAlign="Middle">
+                    <cells>
+                        <Image src="{myModel>image}"
+                                width="50%"
+                                height="50%"/>
+                        <Text
+                            text="{myModel>Matrnm}" />
+                        <Text
+                            text="{myModel>Quantity}" />
+						 <Text
+                            text="{myModel>sResult}" />
+                        <!--<Text
+                            text="BOX" />
+                        <ObjectNumber
+                        number="{
+                            parts:[{path:'Sdprice'},{path:'Convsq'}],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: {showMeasure: false}
+                        }"
+                        unit="원" />
+                        <Text
+                            text="{SupplierName}" /> -->
+                    </cells>
+                </ColumnListItem>
+            </items>
+			
+		</Table>
+		</VBox>
+	</content>
+	</Page>
+</mvc:View>

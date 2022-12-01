@@ -1,0 +1,224 @@
+<mvc:View
+	height="100%"
+	controllerName="b02.sd.common.sdorder1.controller.View3"
+	xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:u="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+    displayBlock="true" 
+	xmlns:f="sap.f"
+    >
+<NavContainer id="navContainer">
+		<pages>
+			<f:DynamicPage
+				id="dynamicPage"
+				
+				showFooter="true"
+				>
+				<!-- DynamicPage Title -->
+                <!-- <f:header>
+                    <f:DynamicPageHeader >
+                        <Button 
+					icon="sap-icon://nav-back" 
+					press="handleNavigateToMidColumnPress"/>
+					<HBox>
+					<Button text="뀨" press = 'onDebugger'/>
+					</HBox>
+                    </f:DynamicPageHeader>
+                </f:header> -->
+				<f:title>
+					<f:DynamicPageTitle>
+						<f:heading>
+							<Title text="Header Title"/>
+						</f:heading>
+					</f:DynamicPageTitle>
+				</f:title>
+				<!-- DynamicPage Header -->
+				<f:content>
+					<Wizard id="ShoppingCartWizard"
+					        class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+					        complete="completedHandler"
+					        height="auto" 
+					        enableBranching="false">
+							<!-- 아래부분 장바구니 리스트 가져와서 보여주기 -->
+						<WizardStep
+							id="ContentsStep"
+							nextStep="PaymentTypeStep"
+							title="주문 정보"
+							icon="sap-icon://cart">
+						<ObjectHeader
+							title="{myModel>/cart/0/Matrnm} 등 {myModel>/cart/length}개"
+							number="{Compo>/sTotal}"
+							>
+							<!-- <attributes>
+								<ObjectAttribute text="{Compo>/sTotal}"/>
+							</attributes> -->
+						</ObjectHeader>
+							<Table mode="Delete"
+								items="{path :'myModel>/cart'}">
+								<columns>
+									<Column>
+										<Text text=""/>
+									</Column>
+									<Column>
+										<Text text="제품명"/>
+									</Column>
+									<Column>
+										<Text text="수량"/>
+									</Column>
+									<Column>
+										<Text text="단위"/>
+									</Column>
+									<Column>
+										<Text text="금액"/>
+									</Column>
+								</columns>  
+
+								<items>
+									<ColumnListItem vAlign="Middle">
+										<cells>
+											<Image src="{myModel>image}"
+													width="30%"
+													height="30%"/>
+											<Text
+												text="{myModel>Matrnm}" />
+											<Text
+												text="{myModel>Quantity}" />
+											<Text
+												text="BOX" />
+											<Text
+												text="{myModel>sResult}" />
+											<!--<Text
+												text="BOX" />
+											<ObjectNumber
+											number="{
+												parts:[{path:'Sdprice'},{path:'Convsq'}],
+												type: 'sap.ui.model.type.Currency',
+												formatOptions: {showMeasure: false}
+											}"
+											unit="원" />
+											<Text
+												text="{SupplierName}" /> -->
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+							<!-- <List mode="Delete"
+							      items="{path :'myModel>/cart'}"
+							      enableBusyIndicator="true"
+							      delete="handleDelete"
+							      headerText="Items">
+								<StandardListItem
+									title="??"
+									type="Active"
+									description="{Description}"
+									icon="{ProductPicUrl}"
+									info="{myModel>image} {myModel>Matrnm} {myModel>Quantity} {myModel>iResult}"
+									iconDensityAware="false"
+									iconInset="false"/>
+							</List> -->
+						</WizardStep>
+						<!-- 배송 희망 날짜 입력 -->
+						<WizardStep
+							id="PaymentTypeStep"
+							title="배송 희망 날짜"
+							subsequentSteps="CreditCardStep, BankAccountStep, CashOnDeliveryStep"
+							complete="goToPaymentStep"
+							icon="sap-icon://money-bills">
+							<Text class="sapUiSmallMarginBottom"
+							      text="배송일 입력"/>
+							<VBox>
+								<DatePicker id="datePicker"
+								dateValue="{view2>/orderDate}"
+								valueFormat = "yyyy-MM-dd"
+								displayFormat="{view2>/dateFormat}"
+								change=".onSelectDate" 
+								width="10rem"/>
+							</VBox>
+							<HBox
+								alignItems="Center"
+								justifyContent="Center"
+								width="100%">
+								
+								<SegmentedButton selectionChange="setPaymentMethod" id="paymentMethodSelection"
+								                 selectedKey="{/selectedPayment}">
+									
+								</SegmentedButton>
+								
+							</HBox>
+						</WizardStep>
+						<!-- <WizardStep
+							id="CreditCardStep"
+							title="Credit card info"
+							nextStep="BillingStep"
+							activate="checkCreditCardStep"
+							icon="sap-icon://credit-card">
+							<MessageStrip text="Enter at least 3 symbols for credit card name."/>
+							<form:SimpleForm
+								editable="true">
+								<Label text="Name on card" required="true"/>
+								<Input value="{/CreditCard/Name}" liveChange="checkCreditCardStep"
+								       valueLiveUpdate="true"/>
+								<Label text="Card number"/>
+								<Input value="{/CardNumber}"/>
+								<Label text="Security code"/>
+								<Input value="{/CreditCard/SecurityCode}"/>
+								<Label text="Expiration date"/>
+								<DatePicker value="{/CreditCard/Expire}"/>
+							</form:SimpleForm>
+						</WizardStep> -->
+						<WizardStep
+							id="BankAccountStep"
+							title="고객 정보 및 배송지"
+							nextStep="BillingStep"
+							icon="sap-icon://official-service">
+							<Panel>
+								<headerToolbar>
+									<Toolbar height="0rem">
+										<Title text=""/>
+									</Toolbar>
+								</headerToolbar>
+								<layout:Grid
+									defaultSpan="L6 M6 S10"
+									hSpacing="2">
+									<Label text="Customer " design="Bold"/>
+									<Label text="{view2>/VendorData/0/Repr}"/>
+									<Label text="Company " design="Bold"/>
+									<Label text="{view2>/VendorData/0/Vendorn}"/>
+									<Label text="Address" design="Bold"/>
+									<Label text="{view2>/VendorData/0/Ploc}"/>
+									<Label text="Phone Number" design="Bold"/>
+									<Label text="{view2>/VendorData/0/Phone}"/>
+									<Label text="E-mail" design="Bold"/>
+									<Label text="{view2>/VendorData/0/Email}"/>
+								
+								</layout:Grid>
+							</Panel>
+						</WizardStep>
+					</Wizard>
+				</f:content>
+				<!-- DynamicPage Footer -->
+				<f:footer>
+					<OverflowToolbar>
+						<Button icon="sap-icon://message-popup"
+						        text="{messagesLength}"
+						        type="Emphasized"
+						        press="onMessageButtonPress"
+						        visible="{= !!$messagesLength}}"/>
+						<ToolbarSpacer/>
+						<Button type="Accept" text="주문하기" press='onAccept'/>
+						<Button type="Reject" text="취소" press='onReject'/>
+							<!-- <Button
+								text="Test"
+								press=".onShowTextInfo"
+								class="sapUiSmallMarginBottom" /> -->
+			
+					</OverflowToolbar>
+				</f:footer>
+			</f:DynamicPage>
+		</pages>
+	</NavContainer>
+</mvc:View>
+
